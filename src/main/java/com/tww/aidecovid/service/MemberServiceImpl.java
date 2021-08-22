@@ -2,18 +2,36 @@ package com.tww.aidecovid.service;
 
 import com.tww.aidecovid.model.Member;
 import com.tww.aidecovid.repository.MemberRepository;
+import javassist.NotFoundException;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.expression.Arrays;
 
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberRepository repository;
 
+
+
     @Override
-    public Optional<Member> getById(Long id) {
-        return repository.findById(id);
+    public Member getById(Long id) {
+        Optional<Member> member = repository.findById(id);
+       if(member.isEmpty()) throw new EntityNotFoundException("Member not found");
+       return member.get();
+    }
+
+    @Override
+    public Member getByLogin(String login) {
+        Optional<Member> member = repository.findByLogin(login);
+        if(member.isEmpty()) throw new EntityNotFoundException("Member not found");
+        return member.get();
     }
 
     @Override
@@ -24,5 +42,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void delete(Member member) {
         repository.delete(member);
+    }
+
+    @Override
+    public List<Member> getAllMembers() {
+
+        return IterableUtils.toList(repository.findAll());
     }
 }

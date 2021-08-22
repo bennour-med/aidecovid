@@ -1,6 +1,7 @@
 package com.tww.aidecovid.service;
 
 import com.tww.aidecovid.model.Discussion;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 

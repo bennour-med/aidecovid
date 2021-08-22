@@ -3,9 +3,11 @@ package com.tww.aidecovid.service;
 import com.tww.aidecovid.model.Message;
 import com.tww.aidecovid.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class MessageServiceImpl implements MessageService{
 
     @Autowired

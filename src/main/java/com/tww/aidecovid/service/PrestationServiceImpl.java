@@ -3,9 +3,11 @@ package com.tww.aidecovid.service;
 import com.tww.aidecovid.model.Prestation;
 import com.tww.aidecovid.repository.PrestationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class PrestationServiceImpl implements PresatationService{
 
     @Autowired

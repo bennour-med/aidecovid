@@ -3,9 +3,11 @@ package com.tww.aidecovid.service;
 import com.tww.aidecovid.model.Discussion;
 import com.tww.aidecovid.repository.DiscussionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private DiscussionRepository repository;

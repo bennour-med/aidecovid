@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+@org.springframework.stereotype.Service
 public class ServiceServiceImpl implements ServiceService{
 
     @Autowired

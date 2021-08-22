@@ -21,6 +21,8 @@ import java.util.List;
         private Long id;
         private String nom;
         private String prenom;
+        private String login;
+        private String role;
         private Integer cp;
         private boolean valid;
 
