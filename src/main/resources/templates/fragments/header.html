@@ -8,30 +8,22 @@
     <header class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Réservations</a>
+          <a class="navbar-brand" href="#">Aide Covid 19</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li th:classappend="${module == 'home' ? 'active' : ''}">
-              <a href="#" th:href="@{/}">Home</a>
+              <a href="#" th:href="@{/}">Page d'acceuil</a>
             </li>
-            <li th:classappend="${module == 'artists' ? 'active' : ''}">
-              <a href="#" th:href="@{/artists}">Artists</a>
+            <li th:classappend="${module == 'members' ? 'active' : ''}">
+              <a href="#" th:href="@{/members}">Members</a>
             </li>
-            <li th:classappend="${module == 'localities' ? 'active' : ''}">
-              <a href="#" th:href="@{/localities}">Localities</a>
+
+            <li th:classappend="${module == 'discutions' ? 'active' : ''}">
+              <a href="#" th:href="@{/discutions}">Espace discutions</a>
             </li>
-            <li th:classappend="${module == 'roles' ? 'active' : ''}">
-              <a href="#" th:href="@{/roles}">Roles</a>
-            </li>
-            <li th:classappend="${module == 'types' ? 'active' : ''}">
-              <a href="#" th:href="@{/types}">Types</a>
-            </li>
-            <li th:classappend="${module == 'shows' ? 'active' : ''}">
-              <a href="#" th:href="@{/shows}">Shows</a>
-            </li>
-            <li th:classappend="${module == 'representations' ? 'active' : ''}">
-              <a href="#" th:href="@{/representations}">Representations</a>
+            <li th:classappend="${module == 'infos' ? 'active' : ''}">
+              <a href="#" th:href="@{/infos}">Informations</a>
             </li>
           </ul>
         </div>

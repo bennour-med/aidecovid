@@ -10,7 +10,7 @@
         <h1 th:text="${title}">Liste des membres</h1>
 
         <div class="actions">
-            <a th:href="@{/members/create}">Ajouter un nouvel membre</a>
+            <a th:href="@{/members/create}">Ajouter un nouveau membre</a>
             <br/>
         </div>
 
@@ -24,11 +24,9 @@
             </thead>
             <tbody>
             <tr th:each="member : ${members}">
-                <td th:text="${member.nom}">
-                    Bob
+                <td th:text="${member.nom}">Bob
                 </td>
-                <td><a th:text="${member.prenom}" th:href="@{/members/{id}(id=${member.id})}">
-                    Sull</a>
+                <td><a th:text="${member.prenom}" th:href="@{/members/{id}(id=${member.id})}">Sull</a>
                 </td>
 
                 <td><a th:href="@{/members/{id}(id=${member.id})}">View</a></td>
