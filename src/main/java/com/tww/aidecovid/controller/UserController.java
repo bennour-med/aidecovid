@@ -34,7 +34,7 @@ public class UserController {
         model.addAttribute("templates/member", member);
         model.addAttribute("title", "Fiche d'un membre");
 
-        return "templates/member/show";
+        return "member/show";
     }
 
 
