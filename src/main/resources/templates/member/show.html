@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content">
+    <form class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">Veulliez vous connecter</h2>
+        <p>
+            <label class="sr-only">Nom</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        </p>
+        <p>
+            <label class="sr-only">login</label>
+            <input type="login" id="login" name="login" class="form-control" placeholder="login" required>
+        </p>
+        <input name="_csrf" type="hidden" value="4e5ccfdf-fd9d-438f-8944-c28a6a1137af" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+    </form>
+</div>
+</body></html>
