@@ -15,8 +15,13 @@
             <li th:classappend="${module == 'home' ? 'active' : ''}">
               <a href="#" th:href="@{/}">Page d'acceuil</a>
             </li>
+
             <li th:classappend="${module == 'members' ? 'active' : ''}">
               <a href="#" th:href="@{/members}">Members</a>
+            </li>
+
+            <li th:classappend="${module == 'login' ? 'active' : ''}">
+              <a href="#" th:href="@{/register}">Se connecter</a>
             </li>
 
             <li th:classappend="${module == 'discutions' ? 'active' : ''}">
