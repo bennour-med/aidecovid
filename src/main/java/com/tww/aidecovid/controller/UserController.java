@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -63,8 +64,21 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
 
+       return "member/login";
+    }
 
-              return "member/login";
+    @PostMapping("/process_login")
+    public String process_login(Model model){
+        String email = (String) model.getAttribute("email");
+        Optional<Member> member = repository.findByEmail(email);
+        if (member.isPresent()){
+            String password = (String) model.getAttribute("password");
+            if(member.get().getPassword().equals(password)){
+                return "member/show";
+            }
+
+        }
+        return "member/login";
     }
 
 }

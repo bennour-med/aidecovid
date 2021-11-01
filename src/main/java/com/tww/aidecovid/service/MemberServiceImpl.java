@@ -28,8 +28,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getByLogin(String login) {
-        Optional<Member> member = repository.findByLogin(login);
+    public Member getByLogin(String email) {
+        Optional<Member> member = repository.findByEmail(email);
         if(member.isEmpty()) throw new EntityNotFoundException("Member not found");
         return member.get();
     }
