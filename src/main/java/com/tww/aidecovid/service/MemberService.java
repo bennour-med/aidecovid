@@ -11,7 +11,7 @@ public interface MemberService {
 
     Member getById(Long id);
 
-    Member getByLogin(String login);
+    Member getByEmail(String login);
 
     void save(Member member);
 

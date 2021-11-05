@@ -3,7 +3,9 @@ package com.tww.aidecovid.controller;
 
 import com.tww.aidecovid.model.Member;
 import com.tww.aidecovid.repository.MemberRepository;
+import com.tww.aidecovid.repository.RoleRepository;
 import com.tww.aidecovid.service.MemberService;
+import com.tww.aidecovid.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,12 @@ public class UserController {
 
     @Autowired
     private MemberRepository repository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @GetMapping("/members")
     public String getMembers(Model model) {
@@ -66,7 +74,7 @@ public class UserController {
 
        return "member/login";
     }
-
+/*
     @PostMapping("/process_login")
     public String process_login(Model model){
         String email = (String) model.getAttribute("email");
@@ -80,5 +88,6 @@ public class UserController {
         }
         return "member/login";
     }
+   */
 
 }

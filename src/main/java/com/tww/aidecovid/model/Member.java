@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
         private Long id;
         private String nom;
         private String prenom;
+        @NotEmpty(message ="Veuillez introduire votre adresse email")
         private String email;
         private String password;
         private String role;
@@ -32,4 +34,30 @@ import java.util.List;
 
     @OneToMany(targetEntity= Prestation.class, mappedBy="provider")
     private List<Prestation> providedPrestations = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public Member addRole(Role role) {
+        if(!this.roles.contains(role)) {
+            this.roles.add(role);
+            role.addUser(this);
+        }
+
+        return this;
+    }
+
+    public Member removeRole(Role role) {
+        if(this.roles.contains(role)) {
+            this.roles.remove(role);
+            role.getUsers().remove(this);
+        }
+
+        return this;
+    }
+
 }
