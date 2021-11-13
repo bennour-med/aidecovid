@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>A propos TWW</title>
+</head>
+<body>
+
+    <div class="container">
+        <div layout:fragment="content">
+            <div class="row">
+                <div class="col-sm">
+                    <h1 class="rounded p-2 text-center text-white mt-3 text-uppercase" style="background-color: #81C283">À propos </h1><br />
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="rounded-left col-sm bg-dark">
+                        <a>
+                            <img th:src="@{'/images/logo-tww.jpg'}" class="float-start mx-auto img-fluid img-thumbnail my-4 " alt="apropos"/>
+                        </a>
+                    </div>
+
+                    <div class="rounded-right col-sm text-white text-justify" style="background-color: #199F99">
+                        <h2 class="text-uppercase"> Entraide covid19 - Together We Win </h2>
+                        <p> TWW est un réseau de solidarité pour relier des personnes d’entraide locaux et s’auto-organiser face à la pandémie.
+                            Chaque personne peut demander et/ou offrir son aide via cette plateforme.
+                        </p>
+
+                        <h5>Voici un appercu des services que vous pouvez proposer et/ou demander pour
+                        aider les familles ou les personnes dont ils ont besoins: </h5>
+                        <ul>
+                            <li>Réaliser les courses aux personnes âgées ou aux familles confinées à cause d'une quarantaine imposée par la loi.</li>
+                            <li>Aider à minimiser l'impact de la solitude des gens isolés à travers un espace de discussions.</li>
+                            <li>Troquer des machines, du matériel ou des services.</li>
+                            <li>Donner un coup de main au niveau scolaire (cours et devoirs) aux élèves/étudiants et leurs parents.</li>
+                            <li>Proposer des services de réparation ou de dépannage de tout genre.</li>
+                        </ul>
+                        <span>Les reglès de distanciations sociales doivent être respecter.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

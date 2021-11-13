@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Page inormarions covid19</title>
+</head>
+<body>
+
+    <div class="container">
+        <div layout:fragment="content">
+
+            <div class="row">
+                <div class="col col-sm">
+                    <h1 class="rounded p-2 text-center text-white mt-3 text-uppercase" style="background-color: #81C283">CORONA VIRUS NEWS </h1><br />
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm bg-dark">
+                        <a>
+                           <img th:src="@{'/images/covid19.jpg'}" alt="covid19" class="rounded float-start mx-auto img-fluid img-thumbnail my-3 "/>
+                        </a>
+                    </div>
+                    <div class="col-sm text-white bg-info text-justify "><br/>
+                        <p> Retrouvez toutes les informations sur le coronavirus en Belgique et dans le monde dans notre dossier escape informations :
+                        les dernières évolutions, des articles utiles et <strong class="text-uppercase text-dark"> les dernières mesures en vigueurs.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm text-white" style="background-color: #7BCB89"><br/>
+                        <h2 class="text-uppercase"> Mesures anti-covid19 encours</h2>
+                        <p> Retrouvez toutes les dernières mesures en vigueurs.</p>
+                    </div>
+                    <div class="col-sm">
+                        <a href="mesures">
+                          <img th:src="@{'/images/mesures.png'}" class="rounded float-start mx-auto img-fluid img-thumbnail my-3 " alt="mesures"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                     <div class="col-sm" style="background-color: #838383">
+                        <a href="stat">
+                            <img th:src="@{'/images/stat.jpg'}" class="rounded float-start mx-auto img-fluid img-thumbnail my-3" alt="stat"/>
+                        </a>
+                     </div>
+                    <div class="col-sm text-white" style="background-color:#63B3FA"><br/>
+                        <h2 class="text-uppercase"> corona virus les chiffres et évolution</h2>
+                        <p> Retrouvez toutes les statistiques concernant l'état actuelle de l'évolution de la pandémie.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

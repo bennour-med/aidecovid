@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Footer fragment</title>
-  </head>
-  <body>
-    <footer th:fragment="footer" class="text-center"></br></br></br></br></br></br>
-     &copy; 2021 - ICC – Projet Entraide Covid
-    </footer>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Footer fragment</title>
+</head>
+<body>
+<footer th:fragment="footer" class="page-footer font-small btn-success pt-2 mt-4" style="background-color: #7DBE7A">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <a href="/conditions">
+          <img th:src="@{'/images/Conditions.png'}" class="rounded mx-auto d-block" alt="Conditions" style="width:40px"/>
+        </a>
+      </div>
+      <div class="col-sm">
+        <a href="/confidentialite">
+          <img th:src="@{'/images/Politiques.png'}" class="rounded mx-auto d-block" alt="Politiques" style="width:40px"/>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row ">
+      <div class="col-sm">
+        <a href="/conditions" class="btn btn-link active mx-auto d-block" role="button" aria-pressed="true">Mentions légales et CGU</a>
+      </div>
+      <div class="col-sm">
+        <a href="/confidentialite" class="btn btn-link active mx-auto d-block" role="button" aria-pressed="true">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="container">
+    <div  class="text-center p-2 text-white">
+      ©  2021 - ICC – Projet Entraide Covid
+    </div>
+  </div>
+</footer>
+</body>
 </html>

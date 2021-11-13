@@ -1,32 +1,26 @@
 package com.tww.aidecovid.security;
 
-import com.tww.aidecovid.model.Member;
-import com.tww.aidecovid.repository.MemberRepository;
-
+import com.tww.aidecovid.model.User;
+import com.tww.aidecovid.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
-    MemberRepository repository;
-
-    Member detMember;
+    UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Optional<Member> member =  repository.findByEmail(email);
-        if (member == null) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user =  userRepository.findByLogin(username);
+        if (user == null) {
             throw new UsernameNotFoundException("User Not Found!");
         }
-        Member memberDetail = member.get();
-        return new UserDetailsImpl(memberDetail);
+        return new UserDetailsImpl(user);
     }
 
 }

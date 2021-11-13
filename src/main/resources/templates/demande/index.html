@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Demander de l'aide</title>
+</head>
+<body>
+    <div class="container">
+        <div layout:fragment="content">
+            <div class="row">
+                <div class="col-sm">
+                    <h2 class="rounded p-2 text-center text-white mt-3 text-uppercase" style="background-color: #81C283">Vous avez besoin d'aide, n'hésitez pas à la demander </h2><br />
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="rounded-left col-sm bg-dark">
+                        <a>
+                            <img th:src="@{'/images/demande.jpg'}" class="rounded float-start mx-auto img-fluid img-thumbnail my-3 " alt="solidarité"/>
+                        </a>
+                    </div>
+                    <div class="rounded-right p-4 col-sm text-white text-justify" style="background-color: #3E56D8">
+
+                        <p> Par le biais d'une plateforme d'entraide, vous pouvez demander l'aide aux memnbres de la communautés qui sont là
+                            pour vous aider à surmenter cette période difficile que nous vivons tous. Vous êtes confinés chez vous ou vous avez
+                            peur de sortir car votre ssanté est fragile. vous pouvez choisir les services que vous voulez demander ainsi
+                            que les plages horaires qui vous conviennent.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-md-flex justify-content-end">
+                    <button type="button" class="btn btn-danger my-2 mr-2">S'inscrir</button>
+                    <button type="button" class="btn btn-warning my-2">Se connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

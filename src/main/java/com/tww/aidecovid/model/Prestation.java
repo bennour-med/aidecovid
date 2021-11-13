@@ -28,11 +28,11 @@ public class Prestation {
 
     @ManyToOne
     @JoinColumn(name = "requester_id", nullable = false)
-    private Member requester;
+    private User requester;
 
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
-    private Member provider;
+    private User provider;
 
 }
 

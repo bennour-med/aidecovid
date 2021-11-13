@@ -2,38 +2,36 @@ package com.tww.aidecovid.security;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import com.tww.aidecovid.model.Member;
+import com.tww.aidecovid.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 
 
 public class UserDetailsImpl implements UserDetails {
 
-    private Member member;
+    private User user;
 
-    public UserDetailsImpl(Member member){
-        this.member = member;
+    public UserDetailsImpl(User user){
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(member.getRoles().get(0).getRole()));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        return member.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        // TODO Auto-generated method stub
+        return user.getLogin();
     }
 
     @Override
