@@ -31,13 +31,11 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
-    public void updateUser(String id, User user) {
+    public void updateUser(Long id, User user) {
         repository.save(user);
     }
 
-    public void deleteUser(String id) {
-        Long indice = (long) Integer.parseInt(id);
-
-        repository.deleteById(indice);
+    public void deleteUser(Long id) {
+         repository.deleteById(id);
     }
 }
