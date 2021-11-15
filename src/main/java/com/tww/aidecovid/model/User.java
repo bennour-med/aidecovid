@@ -38,8 +38,14 @@ public class User {
     @Email
     private String email;
     @NotEmpty
-    @NotNull
     private String langue;
+
+    public User(String firstname, String lastname, String login, String email) {
+        this.login = login;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+    }
 
     @Column(columnDefinition = "varchar(20) default 'member'", insertable = false)
     private String role;

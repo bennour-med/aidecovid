@@ -47,12 +47,12 @@
 
             <!-- Lien menu déroulant administrateur -->
             <li sec:authorize="hasAuthority('admin')" class="nav-item dropdown" >
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-light font-weight-bold text-uppercase px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Menu Admin
               </a>
               <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <a class="dropdown-item" href="/">Membres</a>
-                <a class="dropdown-item" href="/">services</a>
+                <a class="dropdown-item" href="/users">Membres</a>
+                <a class="dropdown-item" href="/">Services</a>
                 <a class="dropdown-item" href="/">informations</a>
               </div>
             </li>
