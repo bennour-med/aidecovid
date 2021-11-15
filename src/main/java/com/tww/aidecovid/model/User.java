@@ -41,7 +41,7 @@ public class User {
     @NotNull
     private String langue;
 
-    @Column(columnDefinition = "varchar(20) default 'membre'", insertable = false)
+    @Column(columnDefinition = "varchar(20) default 'member'", insertable = false)
     private String role;
 
     @OneToMany(targetEntity= Prestation.class, mappedBy="requester")

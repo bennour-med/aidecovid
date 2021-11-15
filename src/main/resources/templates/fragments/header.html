@@ -7,66 +7,58 @@
 <body>
 <header class='text-white' th:fragment="header" style="background-color: #7DBE7A">
   <!-- Header en 3 partie '<div>' -->
-  <div class="row align-items-center m-0 p-1">
+  <div class="row align-items-center m-0 p-1" style="width: 8rem;">
     <!-- Partie gauche -->
-    <div class="col-1 m-0 p-1 text-right d-none d-md-block text-center">
+    <div class="col-1 m-0 p-1 text-right text-bold d-none d-md-block text-center">
       ENTRAIDE COVID19
     </div>
     <!-- Partie centrale : menu -->
     <div class="col-10 m-0 p-0">
-      <nav class="navbar navbar-expand-sm navbar-dark text-white" style="background-color: #7DBE7A">
+      <nav class="navbar navbar-expand-sm navbar-light fixed-top" style="background-color: #7DBE7A">
+
         <!-- Menu sandwich - taille small ecran -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Menu central -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <!-- Lien menu-->
             <li class="nav-item active">
-              <a class="nav-link" href="/">Acceuil</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/">Acceuil</a>
             </li>
             <!-- Lien page à propos-->
             <li class="nav-item active">
-              <a class="nav-link" href="/apropos">à propos</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/apropos">à propos</a>
             </li>
             <!-- Lien page je m'informe-->
             <li class="nav-item active">
-              <a class="nav-link" href="/information">Je m'informe</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/information">Je m'informe</a>
             </li>
             <!-- Lien page j'offre mon aide-->
             <li class="nav-item active">
-              <a class="nav-link" href="/offre">J'offre mon aide</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/offre">J'offre mon aide</a>
             </li>
             <!-- Lien j'ai besoin d'aide-->
             <li class="nav-item active">
-              <a class="nav-link" href="/demande">J'ai besoin d'aide</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/demande">J'ai besoin d'aide</a>
             </li>
 
-            <!--Lien menu deroulant
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Spectacles
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/shows">Shows</a>
-                <a class="dropdown-item" href="/representations">Representations</a>
-              </div>
-            </li>
+            <!-- Lien menu déroulant administrateur -->
             <li sec:authorize="hasAuthority('admin')" class="nav-item dropdown" >
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Menu Admin
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/artists">Artistes</a>
-                <a class="dropdown-item" href="/types">Types</a>
-                <a class="dropdown-item" href="/roles">Roles</a>
-                <a class="dropdown-item" href="/localities">Localités</a>
+              <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <a class="dropdown-item" href="/">Membres</a>
+                <a class="dropdown-item" href="/">services</a>
+                <a class="dropdown-item" href="/">informations</a>
               </div>
-            </li>-->
+            </li>
 
             <li sec:authorize="isAnonymous()" class="nav-item active">
-              <a class="nav-link" href="/signup">S'inscrire</a>
+              <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/signup">S'inscrire</a>
             </li>
           </ul>
         </div>
