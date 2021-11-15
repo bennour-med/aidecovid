@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/main}">
 <head>
     <title>Demander de l'aide</title>
@@ -32,9 +33,13 @@
             </div>
 
             <div class="container">
-                <div class="d-md-flex justify-content-end">
-                    <button type="button" class="btn btn-danger my-2 mr-2">S'inscrir</button>
-                    <button type="button" class="btn btn-warning my-2">Se connecter</button>
+                <div sec:authorize="isAnonymous()" class="d-md-flex justify-content-end">
+                    <a href="/signup">
+                        <button type="button" class="btn btn-danger my-2 mr-2">S'inscrir</button>
+                    </a>
+                    <a href="/login">
+                        <button type="button" class="btn btn-warning my-2">Se connecter</button>
+                    </a>
                 </div>
             </div>
         </div>
