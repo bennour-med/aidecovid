@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Votre aide est la bienvenue</title>
+</head>
+<body>
+    <div class="container">
+        <div layout:fragment="content">
+            <div class="row">
+                <div class="col-sm">
+                    <h2 class="rounded p-2 text-center text-white mt-3 text-uppercase" style="background-color: #81C283">Votre aide est la bienvenue</h2><br />
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="rounded-left col-sm bg-dark">
+                        <a>
+                            <img th:src="@{'/images/elan-de-solidarite.jpg'}" class="rounded float-start mx-auto img-fluid img-thumbnail my-3 " alt="solidarité"/>
+                        </a>
+                    </div>
+                    <div class="col-sm text-whit rounded-right text-justify" style="background-color: #AAD55A"><br/>
+
+                        <p> Par le biais d'une plateforme d'entraide, vous pouvez offrir votre aide aux familles ou les personnes qui sont en
+                            confinnement ou qu'ils ont un manque d'autonomie. vous pouvez choisir les services que vous voulez proposer ainsi
+                            que les plages horaires qui vous conviennent.
+                        </p>
+                        <span>MERCI d'avance pour votre soutien.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-md-flex justify-content-end">
+                    <button type="button" class="btn btn-danger my-2 mr-2">S'inscrir</button>
+                    <button type="button" class="btn btn-warning my-2">Se connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

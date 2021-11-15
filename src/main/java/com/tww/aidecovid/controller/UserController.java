@@ -1,84 +1,135 @@
 package com.tww.aidecovid.controller;
 
-
-import com.tww.aidecovid.model.Member;
-import com.tww.aidecovid.repository.MemberRepository;
-import com.tww.aidecovid.service.MemberService;
+import com.tww.aidecovid.model.User;
+import com.tww.aidecovid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
-    MemberService service;
+    private UserService service;
 
-    @Autowired
-    private MemberRepository repository;
+    @GetMapping("/users")
+    public String index(Model model) {
+        List<User> users = service.getAllUsers();
 
-    @GetMapping("/members")
-    public String getMembers(Model model) {
-        List<Member> members = service.getAllMembers();
+        model.addAttribute("users", users);
+        model.addAttribute("title", "Liste des utilisateurs");
 
-        model.addAttribute("members", members);
-        model.addAttribute("title", "Liste des membres");
-
-        return "member/index";
+        return "user/index";
     }
 
-    @GetMapping("/members/{id}")
-    public String show(Model model, @PathVariable("id") String id) {
-        Member member = service.getById(Long.parseLong(id));
-
-        model.addAttribute("templates/member", member);
-        model.addAttribute("title", "Fiche d'un membre");
-
-        return "member/show";
+    @GetMapping("/signup")
+    public String showSignUpForm(User user) {
+        return "user/register";
     }
 
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("member", new Member());
+    @PostMapping("user/register")
+    public String addUser(@Valid User user, BindingResult result, Model model) {
 
-        return "member/signup_form";
-    }
-
-    @PostMapping("/process_register")
-    public String processRegister(Member member) {
-        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //String encodedPassword = passwordEncoder.encode(member.getPassword());
-        //member.setPassword(encodedPassword);
-
-        repository.save(member);
-
-        return "member/register_success";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-
-       return "member/login";
-    }
-
-    @PostMapping("/process_login")
-    public String process_login(Model model){
-        String email = (String) model.getAttribute("email");
-        Optional<Member> member = repository.findByEmail(email);
-        if (member.isPresent()){
-            String password = (String) model.getAttribute("password");
-            if(member.get().getPassword().equals(password)){
-                return "member/show";
-            }
-
+        if (result.hasErrors()) {
+            return "user/register";
         }
-        return "member/login";
+
+        String passwordCrypt = user.getPassword();
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(passwordCrypt);
+
+        user.setPassword(encodedPassword);
+
+        service.addUser(user);
+
+        return "redirect:/login";
     }
+
+    @GetMapping("/users/create")
+    public String create(Model model) {
+        User user = new User(null,null,null,null);
+
+        model.addAttribute("user", user);
+
+        return "user/create";
+    }
+
+    @PostMapping("/users/create")
+    public String store(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/create";
+        }
+
+        service.addUser(user);
+
+        return "redirect:/users/"+user.getId();
+    }
+
+    @GetMapping("/users/{id}/edit")
+    public String edit(Model model, @PathVariable("id") String id, HttpServletRequest request) {
+        User user = service.getUser(id);
+
+        model.addAttribute("user", user);
+
+
+        //Générer le lien retour pour l'annulation
+        String referrer = request.getHeader("Referer");
+
+        if(referrer!=null && !referrer.equals("")) {
+            model.addAttribute("back", referrer);
+        } else {
+            model.addAttribute("back", "/users/"+user.getId());
+        }
+
+        return "user/edit";
+    }
+
+    @PutMapping("/users/{id}/edit")
+    public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @PathVariable("id") String id, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/edit";
+        }
+
+        User existing = service.getUser(id);
+
+        if(existing==null) {
+            return "user/index";
+        }
+
+        Long indice = (long) Integer.parseInt(id);
+
+        user.setId(indice);
+
+        service.updateUser(existing.getId(), user);
+
+        model.addAttribute("user", user);
+
+        return "redirect:/users/"+user.getId();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public String delete(@PathVariable("id") String id, Model model) {
+        User existing = service.getUser(id);
+
+        if(existing!=null) {
+            Long indice = (long) Integer.parseInt(id);
+
+            service.deleteUser(indice);
+        }
+
+        return "redirect:/users";
+    }
+
 
 }

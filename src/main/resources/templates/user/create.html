@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Création d'un membre</title>
+    <style>
+        .fieldError { color: red; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div layout:fragment="content" class="row justify-content-center">
+        <div class="col col-md-5 text-center">
+            <form method="POST" th:action="@{/users/create}" th:object="${user}">
+                <h1 class="display-4">Nouveau membre</h1>
+                <div class="form-row py-1">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" th:field="*{email}">
+                    <p th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}" th:errorclass="fieldError"></p>
+                </div>
+
+                <div class="form-row py-1">
+                    <label>Nom de l'utilisateur</label>
+                    <input type="text" class="form-control" name="login" th:field="*{login}">
+                    <p th:if="${#fields.hasErrors('login')}"
+                       th:errors="*{login}" th:errorclass="fieldError"></p>
+                </div>
+                <div class="form-row py-1">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" name="lastname" th:field="*{lastname}">
+                    <p th:if="${#fields.hasErrors('lastname')}"
+                       th:errors="*{lastname}" th:errorclass="fieldError"></p>
+                </div>
+                <div class="form-row py-1">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control" name="firstname" th:field="*{firstname}">
+                    <span th:if="${#fields.hasErrors('firstname')}"
+                          th:errors="*{firstname}" th:errorclass="fieldError"></span>
+                </div>
+                <!--<div class="form-row py-1">
+                    <label for="inlineFormCustomSelect">Langue</label>
+                    <select class="form-control" id="inlineFormCustomSelect" th:field="*{langue}">
+                        <option selected value="fr">Français</option>
+                        <option value="nl">Néerlandais</option>
+                        <option value="en">Anglais</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}"></span>
+                </div>-->
+                <br/>
+                <div class="form-row py-1">
+                    <button type="submit" th:text="Ajouter" class="btn btn-info btn-block"> Ajouter </button>
+                    <button type="reset" th:text="Réinitialiser" class="btn btn-info btn-block">Réinitialiser</button>
+                    <a role="button" th:href="@{back}" class="btn btn-info btn-block">Annuler</a>
+                </div>
+            </form>
+            <nav><a class="btn btn-primary btn-lg mt-5 text-left" th:href="@{/users}">Retour à l'index</a></nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

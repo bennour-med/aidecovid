@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Bienvenue sur le site d'entraide COVID19 !</title>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content" class="text-center">
+        <h1>Bienvenue sur notre site
+            <br/>
+            <span>[[${#request.remoteUser}]]</span>
+        </h1>
+        <div>
+            <a>
+                <img th:src="@{'/images/solidaires.jpg'}" class="rounded mb-5" alt="solidaires" style="width: 90; height: 90%"/>
+            </a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
