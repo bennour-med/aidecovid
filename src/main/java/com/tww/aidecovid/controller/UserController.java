@@ -32,8 +32,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String showSignUpForm(User user) {
-        throw new RuntimeException("ceci est un test");
-        //return "user/register";
+        return "user/register";
     }
 
     @PostMapping("user/register")
