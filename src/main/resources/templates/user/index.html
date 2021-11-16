@@ -18,7 +18,7 @@
             <thead  class="thead-dark text-center">
             <tr>
                 <th scope="col">Nom</th>
-                <th scope="col">Pénom</th>
+                <th scope="col">Prénom</th>
                 <th scope="col">Nom de l'utilisateur</th>
                 <th scope="col">Email</th>
                 <th scope="col">Langue</th>
@@ -48,8 +48,8 @@
                     <form th:id="|deleteForm-${user.id}|"
                           th:action="@{/users/{id}(id=${user.id})}" th:method="delete" >
                         <a href="#" th:onclick="|if(confirm('Confirm delete user #${user.id}'))
-	                    		document.getElementById('deleteForm-${user.id}').submit();
-	                    		return false;|" class="btn text-light" style="background-color: #C70039">Supprimer</a>
+                        document.getElementById('deleteForm-${user.id}').submit();
+                        return false;|" class="btn text-light" style="background-color: #C70039">Supprimer</a>
                     </form>
                 </td>
             </tr>

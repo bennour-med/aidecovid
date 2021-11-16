@@ -37,14 +37,14 @@ public class User {
     @NotEmpty
     @Email
     private String email;
-    @NotEmpty
     private String langue;
 
-    public User(String firstname, String lastname, String login, String email) {
+    public User(String firstname, String lastname, String login, String email, String password) {
         this.login = login;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.password = password;
     }
 
     @Column(columnDefinition = "varchar(20) default 'member'", insertable = false)

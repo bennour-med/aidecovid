@@ -31,7 +31,13 @@
                     </div>
                 </div>
             </div>
-
+            <div class="container">
+                <div sec:authorize="isAuthenticated()" class="d-md-flex justify-content-end">
+                    <a href="/form_demande">
+                        <button type="button" class="btn btn-danger my-2 mr-2">Demander de l'aide</button>
+                    </a>
+                </div>
+            </div>
             <div class="container">
                 <div sec:authorize="isAnonymous()" class="d-md-flex justify-content-end">
                     <a href="/signup">

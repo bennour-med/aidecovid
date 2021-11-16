@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Modification d'un service</title>
+    <style>
+        .fieldError { color: red; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content" class="row justify-content-center">
+        <div class="col-md-5 text-center">
+
+            <form th:action="@{/services/{id}/edit(id=${service.id})}" th:object="${service}" th:method="put">
+                <div class="form-row py-1">
+                    <label class="font-weight-bold">Nom du service :&nbsp</label>
+                    <span th:text="${service.nom}"></span>
+                </div>
+                <div class="form-row py-1">
+                    <label class="font-weight-bold">Description du service:&nbsp</label>
+                    <span th:text="${service.description}"></span>
+                </div>
+                <div class="form-row py-1">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" th:field="*{nom}">
+                    <p th:if="${#fields.hasErrors('nom')}"
+                       th:errors="*{nom}" th:errorclass="fieldError"></p>
+                </div>
+
+                <div class="form-row py-1">
+                    <label>Description</label>
+                    <input type="text" class="form-control" th:field="*{description}">
+                    <p th:if="${#fields.hasErrors('description')}"
+                       th:errors="*{description}" th:errorclass="fieldError"></p>
+                </div>
+
+                <div class="form-row py-1 mt-2">
+                    <button type="submit" th:text="Modifier" class="btn btn-info btn-block">Modifier</button>
+                    <button type="reset" th:text="Réinitialiser" class="btn btn-info btn-block">Réinitialiser</button>
+                    <a role="button" th:href="${back}" class="btn btn-info btn-block">Annuler</a>
+                </div>
+            </form>
+            <nav><a class="btn btn-primary btn-lg mt-5 text-left" th:href="@{/services}">Retour à l'index</a></nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

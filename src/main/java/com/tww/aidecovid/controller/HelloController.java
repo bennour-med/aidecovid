@@ -51,5 +51,4 @@ public class HelloController {
         return "confidentialite/index";
     }
 
-
 }

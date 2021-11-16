@@ -24,4 +24,9 @@ public class Service {
 
     @OneToMany(targetEntity= Prestation.class, mappedBy="service")
     private List<Prestation> prestations = new ArrayList<>();
+
+    public Service(String nom, String description){
+        this.nom = nom;
+        this.description = description;
+    }
 }

@@ -1,15 +1,15 @@
 package com.tww.aidecovid.service;
 
 import com.tww.aidecovid.model.Service;
-
-import java.util.Optional;
+import java.util.List;
 
 
 public interface ServiceService {
 
-    Optional<Service> getById(Long id);
+    List<Service> getAllServices();
+    Service getService(String id);
+    void addService(Service service);
+    void updateService(Long id, Service service);
+    void deleteService(Long id);
 
-    void save(Service service);
-
-    void delete(Service service);
 }

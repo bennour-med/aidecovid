@@ -14,27 +14,31 @@
 
             <form th:action="@{/users/{id}/edit(id=${user.id})}" th:object="${user}" th:method="put">
                 <div class="form-row py-1">
-                    <label class="font-weight-bold">Nom :&nbsp; </label>
+                    <label class="font-weight-bold">Nom :&nbsp</label>
                     <span th:text="${user.firstname}">Bennour Aymen</span>
                 </div>
 
                 <div class="form-row py-1">
-                    <label class="font-weight-bold">Prénom:&nbsp;  </label>
+                    <label class="font-weight-bold">Prénom:&nbsp</label>
                     <span th:text="${user.lastname}">Bennour Aymen</span>
                 </div>
 
 
                 <div class="form-row py-1">
-                    <label class="font-weight-bold">Email:&nbsp;   </label>
-                    <span th:text="${user.email}">Bennour@email.com</span>
+                    <label class="font-weight-bold">Email:&nbsp</label>
+                    <span th:text="${user.email}">email@email.com</span>
                 </div>
                 <div class="form-row py-1 mb-5">
-                    <label class="font-weight-bold">Nom de l'utilisateur:&nbsp;   </label>
+                    <label class="font-weight-bold">Nom de l'utilisateur:&nbsp;</label>
                     <span th:text="${user.login}">Bennour Aymen</span>
+                </div>
+                <div class="form-row py-1 mb-5">
+                    <label class="font-weight-bold">Mot de passe:&nbsp</label>
+                    <span th:text="${user.password}"></span>
                 </div>
 
                 <div class="form-row py-1">
-                    <label class="font-weight-bold">Id membre:&nbsp;   </label>
+                    <label class="font-weight-bold">Id membre:&nbsp</label>
                     <span th:text="${user.id}">1</span>
                 </div>
 
@@ -64,6 +68,13 @@
                     <input type="text" class="form-control" th:field="*{lastname}">
                     <p th:if="${#fields.hasErrors('lastname')}"
                        th:errors="*{lastname}" th:errorclass="fieldError"></p>
+                </div>
+
+                <div class="form-row py-1">
+                    <label>Mot de passe</label>
+                    <input type="text" class="form-control" th:field="*{password}">
+                    <p th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}" th:errorclass="fieldError"></p>
                 </div>
 
                 <div class="form-row py-1 mt-2">
