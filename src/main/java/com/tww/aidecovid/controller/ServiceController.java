@@ -67,7 +67,7 @@ public class ServiceController {
 
         service1.addService(service);
 
-        return "redirect:/services/"+service.getId();
+        return "redirect:/services/";
     }
 
     @GetMapping("/services/{id}/edit")
@@ -83,7 +83,7 @@ public class ServiceController {
         if(referrer!=null && !referrer.equals("")) {
             model.addAttribute("back", referrer);
         } else {
-            model.addAttribute("back", "/services/"+service.getId());
+            model.addAttribute("back", "/services/");
         }
 
         return "service/edit";
@@ -110,7 +110,7 @@ public class ServiceController {
 
         model.addAttribute("service", service);
 
-        return "redirect:/services/"+service.getId();
+        return "redirect:/services/";
     }
 
    @DeleteMapping("/services/{id}")
@@ -123,6 +123,6 @@ public class ServiceController {
             service1.deleteService(indice);
         }
 
-        return "redirect:/serviceS";
+        return "redirect:/services";
     }
 }

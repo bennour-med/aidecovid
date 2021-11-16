@@ -72,7 +72,7 @@ public class UserController {
 
         service.addUser(user);
 
-        return "redirect:/users/"+user.getId();
+        return "redirect:/users/";
     }
 
     @GetMapping("/users/{id}/edit")
@@ -88,7 +88,7 @@ public class UserController {
         if(referrer!=null && !referrer.equals("")) {
             model.addAttribute("back", referrer);
         } else {
-            model.addAttribute("back", "/users/"+user.getId());
+            model.addAttribute("back", "/users/");
         }
 
         return "user/edit";
@@ -115,7 +115,7 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        return "redirect:/users/"+user.getId();
+        return "redirect:/users/";
     }
 
     @DeleteMapping("/users/{id}")
@@ -130,6 +130,4 @@ public class UserController {
 
         return "redirect:/users";
     }
-
-
 }
