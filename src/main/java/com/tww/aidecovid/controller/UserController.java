@@ -3,6 +3,7 @@ package com.tww.aidecovid.controller;
 import com.tww.aidecovid.model.User;
 import com.tww.aidecovid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,14 @@ public class UserController {
     private UserService service;
 
     @GetMapping("/users")
-    public String index(Model model) {
-        List<User> users = service.getAllUsers();
+    public String index2(Model model) {
 
-        model.addAttribute("users", users);
-        model.addAttribute("title", "Liste des utilisateurs");
+        //List<User> users = service.getAllUsers();
 
-        return "user/index";
+        //model.addAttribute("users", users);
+        //model.addAttribute("title", "Liste des utilisateurs");
+
+        return findPaginatedUser(1, "lastname", "asc", model);
     }
 
     @GetMapping("/signup")
@@ -129,6 +131,28 @@ public class UserController {
         }
 
         return "redirect:/users";
+    }
+
+    @GetMapping("/pageUser/{pageNoUser}")
+    public String findPaginatedUser(@PathVariable(value = "pageNoUser") int pageNoUser, @RequestParam("sortFieldUser") String sortFieldUser,
+                                @RequestParam("sortDirUser") String sortDirUser, Model model) {
+        int pageSizeUser = 3;
+
+        Page<User> pageUser = service.findPaginatedUser(pageNoUser, pageSizeUser, sortFieldUser, sortDirUser);
+        List <User> listUsers = pageUser.getContent();
+
+        model.addAttribute("currentPageUser", pageNoUser);
+        model.addAttribute("totalPagesUser", pageUser.getTotalPages());
+        model.addAttribute("totalItemsUser", pageUser.getTotalElements());
+        model.addAttribute("users", listUsers);
+
+        model.addAttribute("sortFieldUser", sortFieldUser);
+        model.addAttribute("sortDirUser", sortDirUser);
+        model.addAttribute("reverseSortDirUser", sortDirUser.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listUsers", listUsers);
+
+        return "user/index";
     }
 
 }

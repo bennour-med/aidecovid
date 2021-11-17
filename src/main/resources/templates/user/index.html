@@ -17,11 +17,21 @@
         <table th:unless="${#lists.isEmpty(users)}" class="table table-striped my-2">
             <thead  class="thead-dark text-center">
             <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom de l'utilisateur</th>
-                <th scope="col">Email</th>
-                <th scope="col">Langue</th>
+                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=firstname&sortDirUser=' + ${reverseSortDirUser}}">
+                    Nom</a>
+                </th>
+                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=lastname&sortDirUser=' + ${reverseSortDirUser}}">
+                    Prénom</a>
+                </th>
+                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=login&sortDirUser=' + ${reverseSortDirUser}}">
+                    Nom de l'utilisateur</a>
+                </th>
+                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=email&sortDirUser=' + ${reverseSortDirUser}}">
+                    Email</a>
+                    </th>
+                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=langue&sortDirUser=' + ${reverseSortDirUser}}">
+                    Langue</a>
+                    </th>
                 <th colspan="3" class="text-center">Actions</th>
             </tr>
             </thead>
@@ -55,6 +65,34 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- pagination -->
+        <div th:if="${totalPagesUser > 1}">
+            <div class="pagination justify-content-center">
+                <div class="page-link">
+                    Total lignes: [[${totalItemsUser}]] - Page [[${currentPageUser}]] / [[${totalPagesUser}]]
+                    &nbsp; &nbsp;
+                </div>
+
+                <div class="page-link">
+                    <a th:if="${currentPageUser > 1}" th:href="@{'/pageUser/' + ${currentPageUser - 1} + '?sortFieldUser=' + ${sortFieldUser} + '&sortDirUser=' + ${sortDirUser}}">Précédent</a>
+                    <span th:unless="${currentPageUser > 1}">Précédent</span>
+                    &nbsp; &nbsp;
+                </div>
+                <div class="page-link">
+                    <span th:each="i: ${#numbers.sequence(1, totalPagesUser)}">
+                        <a th:if="${currentPageUser != i}" th:href="@{'/pageUser/' + ${i} + '?sortFieldUser=' + ${sortFieldUser} + '&sortDirUser=' + ${sortDirUser}}">[[${i}]]</a>
+                      <span th:unless="${currentPageUser != i}">[[${i}]]</span>
+                        &nbsp; &nbsp;
+                    </span>
+                </div>
+                <div class="page-link">
+                    <a th:if="${currentPageUser < totalPagesUser}" th:href="@{'/pageUser/' + ${currentPageUser + 1} + '?sortFieldUser=' + ${sortFieldUser} + '&sortDirUser=' + ${sortDirUser}}">Suivant</a>
+                    <span th:unless="${currentPageUser < totalPagesUser}">Suivant</span>
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
