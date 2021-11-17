@@ -3,6 +3,8 @@ package com.tww.aidecovid.controller;
 import com.tww.aidecovid.model.Service;
 import com.tww.aidecovid.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,12 +42,13 @@ public class ServiceController {
 
     @GetMapping("/services")
     public String index(Model model) {
-        List<Service> services = service1.getAllServices();
 
-        model.addAttribute("services", services);
-        model.addAttribute("title", "Liste des services");
+        //List<Service> services = service1.getAllServices();
 
-        return "service/index";
+        //model.addAttribute("services", services);
+        //model.addAttribute("title", "Liste des services");
+
+        return findPaginated(1, "nom", "asc", model);
     }
 
 
@@ -124,5 +127,28 @@ public class ServiceController {
         }
 
         return "redirect:/services";
+    }
+
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir, Model model) {
+        int pageSize = 3;
+
+        Page<Service> page = service1.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List < Service > listServices = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("services", listServices);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listServices", listServices);
+
+        return "service/index";
     }
 }
