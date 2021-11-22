@@ -119,13 +119,10 @@ public class ServiceController {
    @DeleteMapping("/services/{id}")
     public String delete(@PathVariable("id") String id, Model model) {
         Service existing = service1.getService(id);
-
-        if(existing!=null) {
+       if(existing!=null) {
             Long indice = (long) Integer.parseInt(id);
-
             service1.deleteService(indice);
         }
-
         return "redirect:/services";
     }
 

@@ -23,12 +23,6 @@ public class UserController {
 
     @GetMapping("/users")
     public String index2(Model model) {
-
-        //List<User> users = service.getAllUsers();
-
-        //model.addAttribute("users", users);
-        //model.addAttribute("title", "Liste des utilisateurs");
-
         return findPaginatedUser(1, "lastname", "asc", model);
     }
 
@@ -59,9 +53,7 @@ public class UserController {
     @GetMapping("/users/create")
     public String create(Model model) {
         User user = new User(null,null,null,null,null);
-
         model.addAttribute("user", user);
-
         return "user/create";
     }
 
@@ -71,52 +63,37 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "user/create";
         }
-
         service.addUser(user);
-
         return "redirect:/users/";
     }
 
     @GetMapping("/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") String id, HttpServletRequest request) {
         User user = service.getUser(id);
-
         model.addAttribute("user", user);
-
-
         //Générer le lien retour pour l'annulation
         String referrer = request.getHeader("Referer");
-
         if(referrer!=null && !referrer.equals("")) {
             model.addAttribute("back", referrer);
         } else {
             model.addAttribute("back", "/users/");
         }
-
         return "user/edit";
     }
 
     @PutMapping("/users/{id}/edit")
     public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @PathVariable("id") String id, Model model) {
-
         if (bindingResult.hasErrors()) {
             return "user/edit";
         }
-
         User existing = service.getUser(id);
-
         if(existing==null) {
             return "user/index";
         }
-
         Long indice = (long) Integer.parseInt(id);
-
         user.setId(indice);
-
         service.updateUser(existing.getId(), user);
-
         model.addAttribute("user", user);
-
         return "redirect:/users/";
     }
 

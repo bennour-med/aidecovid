@@ -26,7 +26,7 @@
             <ul class="navbar-nav mr-auto">
               <!-- Lien menu-->
               <li class="nav-item">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/">Acceuil</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/">Accueil</a>
               </li>
               <!-- Lien page à propos-->
               <li class="nav-item active">
@@ -43,6 +43,11 @@
               <!-- Lien j'ai besoin d'aide-->
               <li class="nav-item active">
                 <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/demande">J'ai besoin d'aide</a>
+              </li>
+
+              <!-- Lien Je discute -->
+              <li sec:authorize="isAuthenticated()" class="nav-item active">
+                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/discussion">Je discute</a>
               </li>
 
               <!-- Lien menu déroulant administrateur -->

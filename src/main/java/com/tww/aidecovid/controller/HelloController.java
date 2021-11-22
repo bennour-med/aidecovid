@@ -51,4 +51,9 @@ public class HelloController {
         return "confidentialite/index";
     }
 
+    @GetMapping("/discussion")
+    public String discussion() {
+        return "discussion/index";
+    }
+
 }
