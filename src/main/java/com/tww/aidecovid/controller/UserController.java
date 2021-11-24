@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/users/create")
     public String create(Model model) {
-        User user = new User(null,null,null,null,null);
+        User user = new User(null,null,null,null,null,null);
         model.addAttribute("user", user);
         return "user/create";
     }
@@ -63,6 +63,13 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "user/create";
         }
+        String passwordCrypt = user.getPassword();
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(passwordCrypt);
+
+        user.setPassword(encodedPassword);
+
         service.addUser(user);
         return "redirect:/users/";
     }
@@ -94,6 +101,15 @@ public class UserController {
         user.setId(indice);
         service.updateUser(existing.getId(), user);
         model.addAttribute("user", user);
+
+        String passwordCrypt = user.getPassword();
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(passwordCrypt);
+
+        user.setPassword(encodedPassword);
+
+        service.addUser(user);
         return "redirect:/users/";
     }
 

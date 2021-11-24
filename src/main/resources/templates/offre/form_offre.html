@@ -31,8 +31,10 @@
                     <small>La plage horaire est de 9h à 18h</small>
                 <p>
             </div> <br />
-            <div class="form-group">
+            <div class="form-group font-weight-bold">
                 <label for="cps">Indiquez les communes qui vous intéresse:</label>
+                <small>&nbsp;* pour sélectionner plusieurs communes, tenez la touche
+                    CTRL enfoncée et cliquez avec la souris</small>
                 <select class="form-control selectpicker" th:field=*{cps} id="cps" multiple>
 
                     <option th:each="cp : ${T(com.tww.aidecovid.statics.CodePostal).values()}"

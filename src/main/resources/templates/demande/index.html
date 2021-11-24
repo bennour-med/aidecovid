@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <div layout:fragment="content">
+        <div layout:fragment="content" class="mb-5">
             <div class="row">
                 <div class="col-sm">
                     <h2 class="rounded p-2 text-center text-white mt-3 text-uppercase" style="background-color: #81C283">Vous avez besoin d'aide, n'hésitez pas à la demander </h2><br />
@@ -23,17 +23,20 @@
                     </div>
                     <div class="rounded-right p-4 col-sm text-white text-justify" style="background-color: #3E56D8">
 
-                        <p> Par le biais d'une plateforme d'entraide, vous pouvez demander l'aide aux memnbres de la communautés qui sont là
-                            pour vous aider à surmenter cette période difficile que nous vivons tous. Vous êtes confinés chez vous ou vous avez
-                            peur de sortir car votre ssanté est fragile. vous pouvez choisir les services que vous voulez demander ainsi
+                        <p> Par le biais cette plateforme d'entraide, vous pouvez demander de l'aide aux memnbres de la communauté qui sont là
+                            pour vous aider à surmonter cette période difficile que nous vivons tous. Vous êtes confinés chez vous ou vous avez
+                            peur de sortir car votre santé est fragile. Vous pouvez choisir les services que vous voulez demander ainsi
                             que les plages horaires qui vous conviennent.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="container">
-                <div sec:authorize="isAuthenticated()" class="d-md-flex justify-content-end">
-                    <span class="font-weight-bold">Veuillez choisir le service que vous voulez demander :</span>
+                <div sec:authorize="isAuthenticated()">
+
+                    <span class="font-weight-bold">Veuillez choisir le service que vous voulez demander :</span><br/>
+
+
                     <table th:unless="${#lists.isEmpty(services)}" class="table table-striped my-2">
                         <thead  class="thead-dark text-center">
                         <tr>
