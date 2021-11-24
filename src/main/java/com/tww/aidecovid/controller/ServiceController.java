@@ -1,5 +1,6 @@
 package com.tww.aidecovid.controller;
 
+import com.tww.aidecovid.dto.PrestationDTO;
 import com.tww.aidecovid.model.Service;
 import com.tww.aidecovid.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class ServiceController {
 
         model.addAttribute("services", services);
         model.addAttribute("title", "Liste des services");
+        model.addAttribute("prestationDTO", new PrestationDTO());
 
         return "offre/form_offre";
     }
