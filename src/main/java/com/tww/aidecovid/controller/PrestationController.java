@@ -2,6 +2,7 @@ package com.tww.aidecovid.controller;
 
 import com.tww.aidecovid.dto.PrestationDTO;
 import com.tww.aidecovid.model.Prestation;
+import com.tww.aidecovid.model.Service;
 import com.tww.aidecovid.model.User;
 import com.tww.aidecovid.security.AuthenticationFacade;
 import com.tww.aidecovid.service.PresatationService;
@@ -38,6 +39,15 @@ public class PrestationController {
         return "";//findPaginatedUser(1, "lastname", "asc", model);
     }
 
+    @GetMapping("/prestations/service/{id}")
+    public String edit(Model model, @PathVariable("id") String id) {
+        Service ser = service.getService(id);
+        List<Prestation> prestations = prestationService.getAvailablePrestationsByServiceId(ser);
+        model.addAttribute("prestations", prestations);
+        model.addAttribute("service", ser);
+        return "demande/form_demande";
+    }
+
     @PostMapping("prestation/propose")
     public String proposePrestation(@Valid PrestationDTO prestationDTO) {
         Prestation prestation = new Prestation();
@@ -49,6 +59,15 @@ public class PrestationController {
         prestation.setService(service.getService(prestationDTO.getServiceId().toString()));
         prestationService.save(prestation);
         return "offre/index";
+    }
+
+    @GetMapping("/prestations/{id}/request")
+    public String requestPrestation(Model model, @PathVariable("id") String id) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        prestation.setRequester(authenticationFacade.getAuthenticatedUser());
+        prestation.setStatus(Status.WAITING.getValue());
+        prestationService.save(prestation);
+        return "demande/index";
     }
 
     @PutMapping("/prestation/{id}/request")

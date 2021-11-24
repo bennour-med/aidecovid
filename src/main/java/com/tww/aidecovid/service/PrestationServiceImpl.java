@@ -2,9 +2,11 @@ package com.tww.aidecovid.service;
 
 import com.tww.aidecovid.model.Prestation;
 import com.tww.aidecovid.repository.PrestationRepository;
+import com.tww.aidecovid.statics.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +18,11 @@ public class PrestationServiceImpl implements PresatationService{
     @Override
     public Optional<Prestation> getById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public List<Prestation> getAvailablePrestationsByServiceId(com.tww.aidecovid.model.Service service) {
+        return repository.findByServiceAndStatus(service, Status.NEW.getValue());
     }
 
     @Override

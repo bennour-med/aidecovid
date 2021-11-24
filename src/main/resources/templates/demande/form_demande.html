@@ -15,116 +15,37 @@
             </div>
         </div>
 
-        <span class="font-weight-bold">Veuillez indiquer le service que vous voulez demander :</span>
+        <span class="font-weight-bold">Veuillez choisir une prestation :</span>
 
-        <!--<div class="actions">
-            <a th:href="@{/users/create}" class="btn btn-secondary my-2">Ajouter un nouveau membre</a>
-            <br/>
-        </div>-->
-
-        <table th:unless="${#lists.isEmpty(services)}" class="table table-striped my-2">
+        <table th:unless="${#lists.isEmpty(prestations)}" class="table table-striped my-2">
             <thead  class="thead-dark text-center">
             <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Description</th>
+                <th scope="col">Service</th>
+                <th scope="col">Par</th>
+                <th scope="col">Date</th>
+                <th scope="col">Communs</th>
                 <th colspan="3" class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr  th:each="service : ${services}">
-                <td th:text="${service.nom}"> Nom
+            <tr  th:each="prestation : ${prestations}">
+                <td th:text="${service.nom}"> Service
                 </td>
-                <td><a th:text="${service.description}"> Description</a>
+                <td th:text="${prestation.provider.firstname}"> Par
+                </td>
+                <td><a th:text="${prestation.date}"> Date</a>
+                </td>
+                <td><a th:text="${prestation.cpList}"> Communs</a>
                 </td>
                 <td>
                     <div class="form-check">
                         <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
                     </div>
                 </td>
-                <!-- <td class="text-center"><a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn text-light" style="background-color: #6AC56D">Modifier</a></td>
-                 <td class="text-center">
-                     <form th:id="|deleteForm-${user.id}|"
-                           th:action="@{/users/{id}(id=${user.id})}" th:method="delete" >
-                         <a href="#" th:onclick="|if(confirm('Confirm delete user #${user.id}'))
-                                 document.getElementById('deleteForm-${user.id}').submit();
-                             return false;|" class="btn text-light" style="background-color: #C70039">Supprimer</a>
-                   </form>
-                 </td>-->
+                <td class="text-center"><a th:href="@{/prestations/{id}/request(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Demander</a></td>
             </tr>
             </tbody>
         </table>
-
-        <form>
-            <div>
-                <label class="font-weight-bold">Choisissez la date de la réalisation de votre demande :</label>
-                <p>
-                    <input type="date" />
-                </p>
-            </div>
-
-            <div>
-                <label class="font-weight-bold">Choisissez l'heure de la réalisation de votre demande:</label>
-                <p>
-                    <input type="time" step="60" value="11: 00" min="09:00" max="18:00">
-                    <small>La plage horaire est de 9h à 18h</small>
-                <p>
-            </div> <br />
-
-            <span class="font-weight-bold">Indiquez les communes qui vous intéresse:</span>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1000 Bruxelles-Ville
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1030 Schaerbeek
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1040 Etterbeek
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1050 Ixelles
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1060 Saint-Gilles
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1070 Anderlecht
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1080 Molenbeek-St-Jean
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label">
-                    1081 Koekelberg
-                </label>
-            </div><br/>
-            <div class="form-row py-1">
-                <button type="submit" class="btn btn-info">
-                    Envoyer votre demande
-                </button>  <small>&nbsp;*  Vous serez notifier dès qu'une personne acceptera votre demande</small>
-            </div>
-        </form>
     </div>
 </div>
 </body>

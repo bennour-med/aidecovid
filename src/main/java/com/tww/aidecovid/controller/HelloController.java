@@ -1,10 +1,19 @@
 package com.tww.aidecovid.controller;
 
+import com.tww.aidecovid.model.Service;
+import com.tww.aidecovid.service.ServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class HelloController {
+
+    @Autowired
+    private ServiceService service;
 
     @GetMapping("/")
     public String index() {
@@ -37,7 +46,10 @@ public class HelloController {
     }
 
     @GetMapping("/demande")
-    public String demande() {
+    public String demande(Model model) {
+        List<Service> services = service.getAllServices();
+
+        model.addAttribute("services", services);
         return "demande/index";
     }
 
