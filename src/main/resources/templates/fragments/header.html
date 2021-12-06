@@ -45,6 +45,11 @@
                 <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/demande">J'ai besoin d'aide</a>
               </li>
 
+              <!-- Lien Mes services-->
+              <li sec:authorize="isAuthenticated()" class="nav-item active">
+                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/prestations">Mes services</a>
+              </li>
+
               <!-- Lien Je discute -->
               <li sec:authorize="isAuthenticated()" class="nav-item active">
                 <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/discussion">Je discute</a>

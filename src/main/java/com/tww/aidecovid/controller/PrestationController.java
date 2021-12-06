@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -33,6 +34,15 @@ public class PrestationController {
     private ServiceService service;
     @Autowired
     private AuthenticationFacade authenticationFacade;
+
+    @GetMapping("/prestations")
+    public String getPrestations(Model model) {
+        User user = authenticationFacade.getAuthenticatedUser();
+        List<Prestation> providedList = prestationService.getProvidedPrestations(user, Arrays.asList(Status.NEW.getValue(),
+                Status.WAITING.getValue(), Status.APPROVED.getValue()));
+        model.addAttribute("providedList", providedList);
+        return "service/prestations";
+    }
 
     @GetMapping("/prestation")
     public String getPrestation(Model model) {
@@ -49,7 +59,7 @@ public class PrestationController {
     }
 
     @PostMapping("prestation/propose")
-    public String proposePrestation(@Valid PrestationDTO prestationDTO) {
+    public String proposePrestation(@Valid PrestationDTO prestationDTO, Model model) {
         Prestation prestation = new Prestation();
         prestation.setStatus(Status.NEW.getValue());
         prestation.setCpList(prestationDTO.getCps());
@@ -58,7 +68,7 @@ public class PrestationController {
         prestation.setDate(prestationDTO.getDateTime());
         prestation.setService(service.getService(prestationDTO.getServiceId().toString()));
         prestationService.save(prestation);
-        return "offre/index";
+        return getPrestations(model);
     }
 
     @GetMapping("/prestations/{id}/request")
@@ -67,16 +77,22 @@ public class PrestationController {
         prestation.setRequester(authenticationFacade.getAuthenticatedUser());
         prestation.setStatus(Status.WAITING.getValue());
         prestationService.save(prestation);
-        return "demande/index";
+        return getPrestations(model);
     }
 
-    @PutMapping("/prestation/{id}/request")
-    public String requestPrestation(@PathVariable("id") Long id, String requesterId) {
-        Prestation prestation = prestationService.getById(id).get();
-        User requester = userService.getUser(requesterId);
-        prestation.setRequester(requester);
-        prestation.setStatus("inProgress");
+    @GetMapping("/prestations/{id}/approve")
+    public String approvePrestation(Model model, @PathVariable("id") String id) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        prestation.setStatus(Status.APPROVED.getValue());
         prestationService.save(prestation);
-        return "redirect:/users/";
+        return getPrestations(model);
+    }
+
+    @GetMapping("/prestations/{id}/decline")
+    public String declinePrestation(Model model, @PathVariable("id") String id) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        prestation.setStatus(Status.DECLINED.getValue());
+        prestationService.save(prestation);
+        return getPrestations(model);
     }
 }

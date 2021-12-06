@@ -1,6 +1,7 @@
 package com.tww.aidecovid.service;
 
 import com.tww.aidecovid.model.Prestation;
+import com.tww.aidecovid.model.User;
 import com.tww.aidecovid.repository.PrestationRepository;
 import com.tww.aidecovid.statics.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,16 @@ public class PrestationServiceImpl implements PresatationService{
     @Override
     public List<Prestation> getAvailablePrestationsByServiceId(com.tww.aidecovid.model.Service service) {
         return repository.findByServiceAndStatus(service, Status.NEW.getValue());
+    }
+
+    @Override
+    public List<Prestation> getProvidedPrestations(User provider, List<String> statusList) {
+        return repository.findByProviderAndStatusIn(provider, statusList);
+    }
+
+    @Override
+    public List<Prestation> getRequestedPrestations(User requester, List<String> statusList) {
+        return repository.findByRequesterAndStatusIn(requester, statusList);
     }
 
     @Override
