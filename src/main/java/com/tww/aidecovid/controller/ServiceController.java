@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -64,14 +65,14 @@ public class ServiceController {
     }
 
    @PostMapping("/services/create")
-    public String store(@Valid @ModelAttribute("service") Service service, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("service") Service service, BindingResult bindingResult, Model model, RedirectAttributes redirAttrs) {
 
         if (bindingResult.hasErrors()) {
             return "service/create";
         }
 
         service1.addService(service);
-
+       redirAttrs.addFlashAttribute("success", "Service ajouté avec succes.");
         return "redirect:/services/";
     }
 
