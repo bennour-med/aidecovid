@@ -1,13 +1,9 @@
 package com.tww.aidecovid.controller;
 
 import com.tww.aidecovid.dto.PrestationDTO;
-import com.tww.aidecovid.model.Prestation;
-import com.tww.aidecovid.model.Service;
-import com.tww.aidecovid.model.User;
+import com.tww.aidecovid.model.*;
 import com.tww.aidecovid.security.AuthenticationFacade;
-import com.tww.aidecovid.service.PresatationService;
-import com.tww.aidecovid.service.ServiceService;
-import com.tww.aidecovid.service.UserService;
+import com.tww.aidecovid.service.*;
 import com.tww.aidecovid.statics.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -32,6 +29,10 @@ public class PrestationController {
     private UserService userService;
     @Autowired
     private ServiceService service;
+    @Autowired
+    private DiscussionService discussionService;
+    @Autowired
+    private MessageService messageService;
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
@@ -67,6 +68,7 @@ public class PrestationController {
         prestation.setRequester(userService.getUser("1"));
         prestation.setDate(prestationDTO.getDateTime());
         prestation.setService(service.getService(prestationDTO.getServiceId().toString()));
+
         prestationService.save(prestation);
         return getPrestations(model);
     }
@@ -94,5 +96,33 @@ public class PrestationController {
         prestation.setStatus(Status.DECLINED.getValue());
         prestationService.save(prestation);
         return getPrestations(model);
+    }
+
+    @GetMapping("/prestations/{id}/discussion")
+    public String getDiscussions(Model model, @PathVariable("id") String id) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        Discussion discussion = prestation.getDiscussion();
+        if (discussion == null) {
+            discussion = new Discussion();
+            discussion.setPrestation(prestation);
+            discussion.setCreated(new Date());
+            discussionService.save(discussion);
+            prestation.setDiscussion(discussion);
+            prestationService.save(prestation);
+        }
+        model.addAttribute("prestation", prestation);
+        model.addAttribute("message", new Message());
+        return "discussion/messages";
+    }
+
+    @PostMapping("/prestations/{id}/discussion/addMessage")
+    public String addMessage(@Valid @ModelAttribute("message") Message message, Model model, @PathVariable("id") String id) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        Discussion discussion = prestation.getDiscussion();
+        message.setCreated(new Date());
+        message.setUser(authenticationFacade.getAuthenticatedUser());
+        message.setDiscussion(discussion);
+        messageService.save(message);
+        return getDiscussions(model, id);
     }
 }

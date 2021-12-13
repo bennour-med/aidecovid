@@ -19,6 +19,9 @@ public class Message {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String text;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
     private Date created;
 
 
@@ -26,4 +29,11 @@ public class Message {
     @JoinColumn(name="discussion_id", nullable=false)
     private Discussion discussion;
 
+    @Override
+    public String toString() {
+        StringBuilder value = new StringBuilder(user.getFirstname());
+        value.append(" ("); value.append(created); value.append("):");
+        value.append(text); value.append("\n");
+        return value.toString();
+    }
 }

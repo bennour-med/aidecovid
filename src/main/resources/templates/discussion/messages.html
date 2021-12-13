@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Modification d'un service</title>
+    <style>
+        .fieldError { color: red; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content" class="row justify-content-center">
+        <div class="col-md-5 text-center">
+            <ul id="messageArea">
+                <th:block th:each="mess : ${prestation.discussion.messages}">
+                    <li th:utext="${mess}">..</li>
+                </th:block>
+            </ul>
+            <form th:action="@{/prestations/{id}/discussion/addMessage(id=${prestation.id})}" th:object="${message}" th:method="post">
+                <div class="form-group">
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" th:field="${message.text}" placeholder="Ecrir votre messsage..." autocomplete="off" class="form-control"/>
+                        <button type="submit" class="primary">Envoyer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+</html>
