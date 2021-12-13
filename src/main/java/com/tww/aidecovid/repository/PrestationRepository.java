@@ -14,4 +14,7 @@ public interface PrestationRepository extends CrudRepository<Prestation, Long> {
     List<Prestation> findByServiceAndStatus(Service service, String status);
     List<Prestation> findByProviderAndStatusIn(User provider, List<String> statusList);
     List<Prestation> findByRequesterAndStatusIn(User requester, List<String> statusList);
+    long countByProviderAndStatus(User provider, String status);
+    long countByRequesterAndStatus(User requester, String status);
+
 }

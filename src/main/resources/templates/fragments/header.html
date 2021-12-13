@@ -37,8 +37,8 @@
               </li>
               <!-- Lien Mes services-->
               <li sec:authorize="isAuthenticated()" class="nav-item active">
-                  <span class="badge badge-pill badge-warning" style="float:right;margin-bottom:-15px;margin-right:-18px;font-size:10px">123</span>
-                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/prestations">Mes services <span class="sr-only">(current)</span></a>
+                <span class="badge badge-pill badge-info" style="float:right;margin-bottom:-15px;margin-right:-1px;font-size:10px" th:text="${notifCount}"/>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/prestations">Mes services<span class="sr-only">(current)</span></a>
               </li>
               <!-- Lien Je discute -->
               <li sec:authorize="isAuthenticated()" class="nav-item active">

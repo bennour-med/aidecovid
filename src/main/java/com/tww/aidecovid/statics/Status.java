@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Status {
-    NEW("Nouveau"), WAITING("En attente"), APPROVED("Accepté"), DECLINED("Refusé"), DONE("Fait");
+    NEW("New"), WAITING("Waiting"), APPROVED("Accepted"), DECLINED("Declined"), DONE("Done");
 
     private final String value;
 

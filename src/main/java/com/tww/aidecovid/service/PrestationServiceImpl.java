@@ -37,6 +37,12 @@ public class PrestationServiceImpl implements PresatationService{
     }
 
     @Override
+    public long getNotificationCount(User user) {
+        return repository.countByProviderAndStatus(user, Status.WAITING.getValue())
+                + repository.countByRequesterAndStatus(user, Status.APPROVED.getValue());
+    }
+
+    @Override
     public void save(Prestation prestation) {
         repository.save(prestation);
     }

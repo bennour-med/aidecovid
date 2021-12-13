@@ -18,6 +18,8 @@ public interface PresatationService {
 
     List<Prestation> getRequestedPrestations(User requester, List<String> statusList);
 
+    long getNotificationCount(User user);
+
     void save(Prestation prestation);
 
     void delete(Prestation prestation);

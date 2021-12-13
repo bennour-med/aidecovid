@@ -1,6 +1,9 @@
 package com.tww.aidecovid.controller;
 
 import com.tww.aidecovid.model.Service;
+import com.tww.aidecovid.model.User;
+import com.tww.aidecovid.security.AuthenticationFacade;
+import com.tww.aidecovid.service.PresatationService;
 import com.tww.aidecovid.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +17,21 @@ public class HelloController {
 
     @Autowired
     private ServiceService service;
+    @Autowired
+    private PresatationService presatationService;
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        String notifCount = "";
+        try {
+            long count = presatationService.getNotificationCount(authenticationFacade.getAuthenticatedUser());
+            if (count > 0) notifCount+=count;
+        } catch (Exception ex) {
+
+        }
+        model.addAttribute("notifCount", notifCount);
         return "index/index";
     }
 

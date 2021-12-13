@@ -28,5 +28,9 @@ public class Discussion {
 
     @OneToOne(mappedBy = "discussion")
     private Prestation prestation;
+
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
 }
 
