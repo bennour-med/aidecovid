@@ -7,13 +7,15 @@
 <body>
 <div class="container">
     <div layout:fragment="content" class="text-center">
+
         <h1>Bienvenue sur notre site
             <br/>
-            <span>[[${#request.remoteUser}]]</span>
+            <span class="text-danger">[[${#request.remoteUser}]]</span>
         </h1>
         <div>
             <a>
-                <img th:src="@{'/images/solidaires.jpg'}" class="rounded mb-5" alt="solidaires" style="width: 90; height: 90%"/>
+                <img th:src="@{'/images/solidaires.jpg'}" class="img-fluid rounded mb-5" alt="solidaires" style="width: 90; height: 90%"/>
+
             </a>
         </div>
     </div>
