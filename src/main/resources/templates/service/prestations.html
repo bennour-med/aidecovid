@@ -52,7 +52,7 @@
                 <td th:text="${prestation.service.nom}"> Nom</td>
                 <td th:text="${prestation.provider.firstname}"> Prescripteur</td>
                 <td th:text="${prestation.status}"> Statut</td>
-                <td><a th:href="@{/prestations/{id}/close(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D" th:if="${prestation.status == T(com.tww.aidecovid.statics.Status)APPROVED.value}">Cloturer</a></td>
+                <td><a th:href="@{/prestations/{id}/close(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D" th:if="${prestation.status == T(com.tww.aidecovid.statics.Status).APPROVED.value}">Cloturer</a></td>
                 <td><a th:href="@{/prestations/{id}/discussion(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Discussion</a></td>
             </tr>
             </tbody>

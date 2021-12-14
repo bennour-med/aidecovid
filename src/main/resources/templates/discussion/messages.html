@@ -27,15 +27,6 @@
                                         </p>
                                     </div>
                                 </div>
-
-                                <div class="media media-chat media-chat-reverse">
-                                    <div class="media-body">
-                                        <p th:block th:each="mess : ${prestation.discussion.messages}">
-                                            <a th:utext="${mess}">..</a>
-                                            </th:block>
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <form th:action="@{/prestations/{id}/discussion/addMessage(id=${prestation.id})}" th:object="${message}" th:method="post">
