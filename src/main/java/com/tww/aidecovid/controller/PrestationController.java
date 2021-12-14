@@ -42,7 +42,10 @@ public class PrestationController {
         User user = authenticationFacade.getAuthenticatedUser();
         List<Prestation> providedList = prestationService.getProvidedPrestations(user, Arrays.asList(Status.NEW.getValue(),
                 Status.WAITING.getValue(), Status.APPROVED.getValue()));
+        List<Prestation> requestedList = prestationService.getRequestedPrestations(user
+                , Arrays.asList(Status.WAITING.getValue(), Status.APPROVED.getValue()));
         model.addAttribute("providedList", providedList);
+        model.addAttribute("requestedList", requestedList);
         return "service/prestations";
     }
 
@@ -97,7 +100,17 @@ public class PrestationController {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.DECLINED.getValue());
         prestationService.save(prestation);
-        return "service/prestations";
+        redirAttrs.addFlashAttribute("success", "Demande refusée, le demandeur sera notifié");
+        return "redirect:/prestations";
+    }
+
+    @GetMapping("/prestations/{id}/close")
+    public String closePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
+        Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
+        prestation.setStatus(Status.DONE.getValue());
+        prestationService.save(prestation);
+        redirAttrs.addFlashAttribute("success", "Demande cloturée avec succès");
+        return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/discussion")
