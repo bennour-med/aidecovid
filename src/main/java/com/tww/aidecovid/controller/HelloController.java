@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -23,15 +24,8 @@ public class HelloController {
     private AuthenticationFacade authenticationFacade;
 
     @GetMapping("/")
-    public String index(Model model) {
-        String notifCount = "";
-        try {
-            long count = presatationService.getNotificationCount(authenticationFacade.getAuthenticatedUser());
-            if (count > 0) notifCount+=count;
-        } catch (Exception ex) {
-
-        }
-        model.addAttribute("notifCount", notifCount);
+    public String index(Model model, HttpSession session) {
+        session.setAttribute("notifCount", presatationService.updateNotifCount());
         return "index/index";
     }
 
