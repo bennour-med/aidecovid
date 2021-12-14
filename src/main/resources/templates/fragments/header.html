@@ -1,64 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <title>Header fragment</title>
 </head>
 <body>
 <header class='text-white' th:fragment="header" style="background-color: #7DBE7A">
-  <!-- Header en 3 partie '<div>' -->
-    <div class="row align-items-center m-0 p-1">
-      <!--Partie gauche-->
-      <div class="col-1 m-0 p-1 text-right text-bold d-none d-md-block text-center">
-        ENTRAIDE <br/> COVID19
-      </div>
-      <!-- Partie centrale : menu -->
-      <div class="col-10 m-0 p-0">
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #7DBE7A">
 
-          <!-- Menu sandwich - taille small ecran -->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Menu central -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <!-- Lien menu-->
+  <nav class="navbar navbar-icon-top navbar-expand-lg navbar-light" style="background-color: #7DBE7A">
+    <a class="navbar-brand font-weight-light text-wrap text-white text-front-bold" style="width: 6rem;" href="#">ENTRAIDE COVID19</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Liens menu-->
+      <ul class="navbar-nav mr-auto">
+              <!-- Lien page Accueil-->
               <li class="nav-item">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/">Accueil</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/"><i class="fa fa-fw fa-home"></i>Accueil</a>
               </li>
               <!-- Lien page à propos-->
               <li class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/apropos">à propos</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/apropos">à propos</a>
               </li>
               <!-- Lien page je m'informe-->
               <li class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/information">Je m'informe</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/information">Je m'informe</a>
               </li>
               <!-- Lien page j'offre mon aide-->
               <li class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/offre">J'offre mon aide</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/offre">J'offre mon aide</a>
               </li>
               <!-- Lien j'ai besoin d'aide-->
               <li class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/demande">J'ai besoin d'aide</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/demande">J'ai besoin d'aide</a>
               </li>
-
               <!-- Lien Mes services-->
               <li sec:authorize="isAuthenticated()" class="nav-item active">
                 <span class="badge badge-pill badge-info" style="float:right;margin-bottom:-15px;margin-right:-1px;font-size:10px" th:text="${session.notifCount}"/>
                 <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/prestations">Mes services<span class="sr-only">(current)</span></a>
               </li>
-
               <!-- Lien Je discute -->
               <li sec:authorize="isAuthenticated()" class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/discussion">Je discute</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/discussion">Je discute</a>
               </li>
-
               <!-- Lien menu déroulant administrateur -->
               <li sec:authorize="hasAuthority('admin')" class="nav-item dropdown" >
-                <a class="nav-link dropdown-toggle text-light font-weight-bold text-uppercase px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-light font-weight-bold text-uppercase px-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Menu Admin
                 </a>
                 <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -66,20 +54,19 @@
                   <a class="dropdown-item" href="/services">Services</a>
                 </div>
               </li>
-
               <li sec:authorize="isAnonymous()" class="nav-item active">
-                <a class="nav-link text-light font-weight-bold text-uppercase px-3" href="/signup">S'inscrire</a>
+                <a class="nav-link text-light font-weight-bold text-uppercase px-2" href="/signup">S'inscrire</a>
               </li>
             </ul>
           </div>
           <!-- Partie droite -->
-          <div sec:authorize="isAuthenticated()" class="col-2 m-0 p-1 text-right d-none d-md-block float-right">
+          <div sec:authorize="isAuthenticated()" class="text-right d-none d-md-block float-right">
             Hello [[${#request.remoteUser}]] !
             <a href="logout">
               <img th:src="@{'/images/log-out.png'}" alt="icon user" style="width:35px"/>
             </a>
           </div>
-          <div sec:authorize="isAnonymous()" class="col-2 m-0 p-1 text-right d-none d-md-block float-right">
+          <div sec:authorize="isAnonymous()" class="text-right d-none d-md-block float-right">
             <a href="login">
               <img th:src="@{'/images/icon-user.png'}" alt="icon logout" style="width:35px"/>
             </a>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+      layout:decorate="~{layouts/main}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Création d'un membre</title>
     <style>
@@ -16,17 +16,17 @@
                 <h1 class="display-4">Nouveau membre</h1>
                 <div class="form-row py-1">
                     <label>Email</label>
-                    <input type="text" class="form-control" name="email" th:field="*{email}">
+                    <input type="text" class="form-control" name="email" th:field="*{email}" value="">
                     <p th:if="${#fields.hasErrors('email')}"
                        th:errors="*{email}" th:errorclass="fieldError"></p>
                 </div>
 
                 <div class="form-row py-1">
-                    <label>Nom de l'utilisateur</label>
+                    <label>Nom d'utilisateur</label>
                     <input type="text" class="form-control" name="login" th:field="*{login}">
-                    <p th:if="${#fields.hasErrors('login')}"
-                       th:errors="*{login}" th:errorclass="fieldError"></p>
+                    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                 </div>
+
                 <div class="form-row py-1">
                     <label>Nom</label>
                     <input type="text" class="form-control" name="lastname" th:field="*{lastname}">
@@ -40,12 +40,11 @@
                           th:errors="*{firstname}" th:errorclass="fieldError"></span>
                 </div>
                 <div class="form-row py-1">
-                    <label>Mot de passe</label>
-                    <input type="text" class="form-control" name="password" th:field="*{password}">
-                    <span th:if="${#fields.hasErrors('password')}"
-                          th:errors="*{password}" th:errorclass="fieldError"></span>
+                    <label>Mot de Passe</label>
+                    <input type="password" class="form-control" name="password" th:field="*{password}">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
-                <!--<div class="form-row py-1">
+                <div class="form-row py-1">
                     <label for="inlineFormCustomSelect">Langue</label>
                     <select class="form-control" id="inlineFormCustomSelect" th:field="*{langue}">
                         <option selected value="fr">Français</option>
@@ -53,7 +52,15 @@
                         <option value="en">Anglais</option>
                     </select>
                     <span th:if="${#fields.hasErrors('langue')}" th:errors="*{langue}"></span>
-                </div>-->
+                </div>
+                <div class="form-row py-1">
+                    <label for="inlineFormCustomSelect1">Role</label>
+                    <select class="form-control" id="inlineFormCustomSelect1" th:field="*{role}">
+                        <option selected value="admin">Admin</option>
+                        <option value="membrer">Membre</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+                </div>
                 <br/>
                 <div class="form-row py-1">
                     <button type="submit" th:text="Ajouter" class="btn btn-info btn-block"> Ajouter </button>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+      layout:decorate="~{layouts/main}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Liste des membres</title>
 </head>
@@ -29,14 +29,17 @@
                 <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=email&sortDirUser=' + ${reverseSortDirUser}}">
                     Email</a>
                     </th>
-                <th scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=langue&sortDirUser=' + ${reverseSortDirUser}}">
+                <th class="align-middle" scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=langue&sortDirUser=' + ${reverseSortDirUser}}">
                     Langue</a>
                     </th>
+                <th class="align-middle" scope="col"><a th:href="@{'/pageUser/' + ${currentPageUser} + '?sortFieldUser=role&sortDirUser=' + ${reverseSortDirUser}}">
+                    Role</a>
+                </th>
                 <th colspan="3" class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr  th:each="user : ${users}">
+            <tr class="text-center" th:each="user : ${users}">
                 <td th:text="${user.firstname}">
                     Bennour
                 </td>
@@ -49,10 +52,12 @@
                 <td><a th:text="${user.email}">
                     Email</a>
                 </td>
-                <td><a th:text="${user.langue}">
+                <td class="align-middle"><a th:text="${user.langue}">
                     FR</a>
                 </td>
-
+                <td class="align-middle"><a th:text="${user.role}">
+                    Admin</a>
+                </td>
                 <td class="text-center"><a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn text-light" style="background-color: #6AC56D">Modifier</a></td>
                 <td class="text-center">
                     <form th:id="|deleteForm-${user.id}|"

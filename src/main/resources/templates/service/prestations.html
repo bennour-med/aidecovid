@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+      layout:decorate="~{layouts/main}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Services</title>
 </head>
@@ -14,57 +14,26 @@
         <table th:unless="${#lists.isEmpty(providedList)}" class="table table-striped my-2">
             <thead  class="thead-dark text-center">
             <tr>
-                <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=nom&sortDir=' + ${reverseSortDir}}">
-                    Nom</a>
+                <th scope="col"><a> Nom</a>
                 </th>
-                <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">
-                    Bénéficiaire</a>
+                <th scope="col"><a> Bénéficiaire</a>
                 </th>
-                <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">
-                    Statut</a>
+                <th scope="col"><a> Statut</a>
                 </th>
                 <th colspan="3" class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr  th:each="prestation : ${providedList}">
+            <tr class="text-center" th:each="prestation : ${providedList}">
                 <td th:text="${prestation.service.nom}"> Nom</td>
                 <td th:text="${prestation.requester.firstname}"> Bénéficiaire</td>
                 <td th:text="${prestation.status}"> Statut</td>
-                <td class="text-center"><a th:href="@{/prestations/{id}/approve(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Accepter</a></td>
-                <td class="text-center"><a th:href="@{/prestations/{id}/decline(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Decliner</a></td>
-                <td class="text-center"><a th:href="@{/prestations/{id}/discussion(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Discussion</a></td>
+                <td><a th:href="@{/prestations/{id}/approve(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Accepter</a></td>
+                <td><a th:href="@{/prestations/{id}/decline(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Decliner</a></td>
+                <td><a th:href="@{/prestations/{id}/discussion(id=${prestation.id})}" class="btn text-light" style="background-color: #6AC56D">Discussion</a></td>
             </tr>
             </tbody>
         </table>
-
-        <!-- pagination -->
-        <div th:if="${totalPages > 1}">
-            <div class="pagination justify-content-center">
-                <div class="page-link">
-                    Total lignes: [[${totalItems}]] - Page [[${currentPage}]] / [[${totalPages}]]
-                    &nbsp; &nbsp;
-                </div>
-
-                <div class="page-link">
-                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Précédent</a>
-                    <span th:unless="${currentPage > 1}">Précédent</span>
-                    &nbsp; &nbsp;
-                </div>
-                <div class="page-link">
-                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-                      <span th:unless="${currentPage != i}">[[${i}]]</span>
-                        &nbsp; &nbsp;
-                    </span>
-                </div>
-                <div class="page-link">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Suivant</a>
-                    <span th:unless="${currentPage < totalPages}">Suivant</span>
-                    &nbsp; &nbsp;
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </body>

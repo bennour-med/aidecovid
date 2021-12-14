@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+      layout:decorate="~{layouts/main}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Modification d'un service</title>
     <style>
@@ -11,8 +11,8 @@
 <div class="container">
     <div layout:fragment="content" class="row justify-content-center">
         <div class="col-md-5 text-center">
-
             <form th:action="@{/services/{id}/edit(id=${service.id})}" th:object="${service}" th:method="put">
+                <h1 class="display-4">Modifier un service</h1>
                 <div class="form-row py-1">
                     <label class="font-weight-bold">Nom du service :&nbsp</label>
                     <span th:text="${service.nom}"></span>

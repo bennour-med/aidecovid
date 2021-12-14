@@ -13,54 +13,77 @@
             <br/><br/>
             Cette page est accessible aux membres et admin!
         </h1>
+    </div>
 
+    <div class="container">
+        <div layout:fragment="content" class="row justify-content-center">
+            <div class="col-md-5 text-center">
+                <form th:action="@{/users/{id}/edit(id=${user.id})}" th:object="${user}" th:method="put">
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Nom :&nbsp</label>
+                        <span th:text="${user.firstname}">Bennour Aymen</span>
+                    </div>
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Prénom:&nbsp</label>
+                        <span th:text="${user.lastname}">Bennour Aymen</span>
+                    </div>
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Email:&nbsp</label>
+                        <span th:text="${user.email}">email@email.com</span>
+                    </div>
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Nom de l'utilisateur:&nbsp;</label>
+                        <span th:text="${user.login}">Bennour Aymen</span>
+                    </div>
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Mot de passe:&nbsp</label>
+                        <span th:text="${user.password}"></span>
+                    </div>
+
+                    <div class="form-row py-1">
+                        <label class="font-weight-bold">Id membre:&nbsp</label>
+                        <span th:text="${user.id}">1</span>
+                    </div>
+                    <div class="form-row py-1">
+                        <label>Email</label>
+                        <input type="text" class="form-control" th:field="*{email}">
+                        <p th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}" th:errorclass="fieldError"></p>
+                    </div>
+                    <div class="form-row py-1">
+                        <label>Nom de l'utilisateur</label>
+                        <input type="text" class="form-control" th:field="*{login}">
+                        <p th:if="${#fields.hasErrors('login')}"
+                           th:errors="*{login}" th:errorclass="fieldError"></p>
+                    </div>
+                    <div class="form-row py-1">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" th:field="*{firstname}">
+                        <p th:if="${#fields.hasErrors('firstname')}"
+                           th:errors="*{firstname}" th:errorclass="fieldError"></p>
+                    </div>
+                    <div class="form-row py-1">
+                        <label>Prénom</label>
+                        <input type="text" class="form-control" th:field="*{lastname}">
+                        <p th:if="${#fields.hasErrors('lastname')}"
+                           th:errors="*{lastname}" th:errorclass="fieldError"></p>
+                    </div>
+                    <div class="form-row py-1">
+                        <label>Mot de passe</label>
+                        <input type="text" class="form-control" th:field="*{password}">
+                        <p th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}" th:errorclass="fieldError"></p>
+                    </div>
+                    <div class="form-row py-1 mt-2">
+                        <button type="submit" th:text="Modifier" class="btn btn-info btn-block">Modifier</button>
+                        <button type="reset" th:text="Réinitialiser" class="btn btn-info btn-block">Réinitialiser</button>
+                        <a role="button" th:href="${back}" class="btn btn-info btn-block">Annuler</a>
+                    </div>
+                </form>
+                <nav><a class="btn btn-primary btn-lg mt-5 text-left" th:href="@{/users}">Retour à l'index</a></nav>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 </html>
-
-<!-- <head>
-    <title>Liste des membres</title>
-</head>
-<body>
-<div class="container">
-    <div layout:fragment="content">
-        <h1 th:text="${title}">Liste des membres</h1>
-
-        <div class="actions">
-            <a th:href="@{/members/create}">Ajouter un nouveau membre</a>
-            <br/>
-        </div>
-
-        <table th:unless="${#lists.isEmpty(members)}">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th colspan="3">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="member : ${members}">
-                <td th:text="${member.nom}">Bob
-                </td>
-                <td><a th:text="${member.prenom}" th:href="@{/members/{id}(id=${member.id})}">Sull</a>
-                </td>
-
-                <td><a th:href="@{/members/{id}(id=${member.id})}">View</a></td>
-                <td><a th:href="@{/members/{id}/edit(id=${member.id})}">Edit</a></td>
-                <td>
-                    <form th:id="|deleteForm-${member.id}|"
-                          th:action="@{/members/{id}(id=${member.id})}" th:method="delete">
-                        <a href="#" th:onclick="|if(confirm('Confirm delete member #${member.id}'))
-	                    		document.getElementById('deleteForm-${member.id}').submit();
-	                    		return false;|">Delete</a>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</body>
-</html>-->

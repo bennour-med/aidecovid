@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/users/create")
     public String create(Model model) {
-        User user = new User(null,null,null,null,null,null);
+        User user = new User(null,null,null,null,null,null,null);
         model.addAttribute("user", user);
         return "user/create";
     }
