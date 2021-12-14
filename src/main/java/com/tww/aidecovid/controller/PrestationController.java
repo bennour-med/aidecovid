@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -37,7 +38,7 @@ public class PrestationController {
     private AuthenticationFacade authenticationFacade;
 
     @GetMapping("/prestations")
-    public String getPrestations(Model model) {
+    public String getPrestations(Model model, RedirectAttributes redirAttrs) {
         User user = authenticationFacade.getAuthenticatedUser();
         List<Prestation> providedList = prestationService.getProvidedPrestations(user, Arrays.asList(Status.NEW.getValue(),
                 Status.WAITING.getValue(), Status.APPROVED.getValue()));
@@ -60,7 +61,7 @@ public class PrestationController {
     }
 
     @PostMapping("prestation/propose")
-    public String proposePrestation(@Valid PrestationDTO prestationDTO, Model model) {
+    public String proposePrestation(@Valid PrestationDTO prestationDTO, Model model, RedirectAttributes redirAttrs) {
         Prestation prestation = new Prestation();
         prestation.setStatus(Status.NEW.getValue());
         prestation.setCpList(prestationDTO.getCps());
@@ -70,32 +71,33 @@ public class PrestationController {
         prestation.setService(service.getService(prestationDTO.getServiceId().toString()));
 
         prestationService.save(prestation);
-        return getPrestations(model);
+        return "service/prestations";
     }
 
     @GetMapping("/prestations/{id}/request")
-    public String requestPrestation(Model model, @PathVariable("id") String id) {
+    public String requestPrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setRequester(authenticationFacade.getAuthenticatedUser());
         prestation.setStatus(Status.WAITING.getValue());
         prestationService.save(prestation);
-        return getPrestations(model);
+        return "service/prestations";
     }
 
     @GetMapping("/prestations/{id}/approve")
-    public String approvePrestation(Model model, @PathVariable("id") String id) {
+    public String approvePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.APPROVED.getValue());
         prestationService.save(prestation);
-        return getPrestations(model);
+        redirAttrs.addFlashAttribute("success", "Demande acceptée, le demandeur sera notifié");
+        return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/decline")
-    public String declinePrestation(Model model, @PathVariable("id") String id) {
+    public String declinePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.DECLINED.getValue());
         prestationService.save(prestation);
-        return getPrestations(model);
+        return "service/prestations";
     }
 
     @GetMapping("/prestations/{id}/discussion")

@@ -3,6 +3,7 @@ package com.tww.aidecovid.service;
 import com.tww.aidecovid.model.Prestation;
 import com.tww.aidecovid.model.User;
 import com.tww.aidecovid.repository.PrestationRepository;
+import com.tww.aidecovid.security.AuthenticationFacade;
 import com.tww.aidecovid.statics.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class PrestationServiceImpl implements PresatationService{
 
     @Autowired
     private PrestationRepository repository;
+
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
 
     @Override
     public Optional<Prestation> getById(Long id) {
@@ -34,6 +38,18 @@ public class PrestationServiceImpl implements PresatationService{
     @Override
     public List<Prestation> getRequestedPrestations(User requester, List<String> statusList) {
         return repository.findByRequesterAndStatusIn(requester, statusList);
+    }
+
+    @Override
+    public String updateNotifCount() {
+        String notifCount = "";
+        try {
+            long count = getNotificationCount(authenticationFacade.getAuthenticatedUser());
+            if (count > 0) notifCount+=count;
+        } catch (Exception ex) {
+
+        }
+        return notifCount;
     }
 
     @Override

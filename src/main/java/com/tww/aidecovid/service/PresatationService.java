@@ -18,6 +18,8 @@ public interface PresatationService {
 
     List<Prestation> getRequestedPrestations(User requester, List<String> statusList);
 
+    String updateNotifCount();
+
     long getNotificationCount(User user);
 
     void save(Prestation prestation);
