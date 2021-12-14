@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -58,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping("/users/create")
-    public String store(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, RedirectAttributes redirAttrs) {
 
         if (bindingResult.hasErrors()) {
             return "user/create";
@@ -71,6 +72,8 @@ public class UserController {
         user.setPassword(encodedPassword);
 
         service.addUser(user);
+
+        redirAttrs.addFlashAttribute("success", "Nouveau membre crée avec succés.");
         return "redirect:/users/";
     }
 

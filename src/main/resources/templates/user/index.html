@@ -7,6 +7,8 @@
 <body>
 <div class="container">
     <div layout:fragment="content" class="mb-5">
+        <div id="alert" class="alert alert-primary mt-2" role="alert" th:text="${success}" th:if="${success}"></div>
+
         <h1 class="display-4">Liste des membres</h1>
 
         <div class="actions">
