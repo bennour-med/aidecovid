@@ -12,7 +12,7 @@ public interface PresatationService {
 
     Optional<Prestation> getById(Long id);
 
-    List<Prestation> getAvailablePrestationsByServiceId(Service service);
+    List<Prestation> getAvailablePrestationsByServiceId(User user, Service service);
 
     List<Prestation> getProvidedPrestations(User provider, List<String> statusList);
 

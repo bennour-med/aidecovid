@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class PrestationController {
     private AuthenticationFacade authenticationFacade;
 
     @GetMapping("/prestations")
-    public String getPrestations(Model model, RedirectAttributes redirAttrs) {
+    public String getPrestations(Model model, RedirectAttributes redirAttrs, HttpSession session) {
         User user = authenticationFacade.getAuthenticatedUser();
         List<Prestation> providedList = prestationService.getProvidedPrestations(user, Arrays.asList(Status.NEW.getValue(),
                 Status.WAITING.getValue(), Status.APPROVED.getValue()));
@@ -46,6 +47,7 @@ public class PrestationController {
                 , Arrays.asList(Status.WAITING.getValue(), Status.APPROVED.getValue()));
         model.addAttribute("providedList", providedList);
         model.addAttribute("requestedList", requestedList);
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
         return "service/prestations";
     }
 
@@ -57,14 +59,15 @@ public class PrestationController {
     @GetMapping("/prestations/service/{id}")
     public String edit(Model model, @PathVariable("id") String id) {
         Service ser = service.getService(id);
-        List<Prestation> prestations = prestationService.getAvailablePrestationsByServiceId(ser);
+        User user = authenticationFacade.getAuthenticatedUser();
+        List<Prestation> prestations = prestationService.getAvailablePrestationsByServiceId(user, ser);
         model.addAttribute("prestations", prestations);
         model.addAttribute("service", ser);
         return "demande/form_demande";
     }
 
     @PostMapping("prestation/propose")
-    public String proposePrestation(@Valid PrestationDTO prestationDTO, Model model, RedirectAttributes redirAttrs) {
+    public String proposePrestation(@Valid PrestationDTO prestationDTO, Model model, RedirectAttributes redirAttrs, HttpSession session) {
         Prestation prestation = new Prestation();
         prestation.setStatus(Status.NEW.getValue());
         prestation.setCpList(prestationDTO.getCps());
@@ -72,44 +75,50 @@ public class PrestationController {
         prestation.setRequester(userService.getUser("1"));
         prestation.setDate(prestationDTO.getDateTime());
         prestation.setService(service.getService(prestationDTO.getServiceId().toString()));
-
+        redirAttrs.addFlashAttribute("success", "Votre offre à été créé avec succes");
         prestationService.save(prestation);
-        return "service/prestations";
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
+        return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/request")
-    public String requestPrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
+    public String requestPrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs, HttpSession session) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setRequester(authenticationFacade.getAuthenticatedUser());
         prestation.setStatus(Status.WAITING.getValue());
         prestationService.save(prestation);
-        return "service/prestations";
+        redirAttrs.addFlashAttribute("success", "Votre demande à été créé avec succes");
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
+        return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/approve")
-    public String approvePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
+    public String approvePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs, HttpSession session) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.APPROVED.getValue());
         prestationService.save(prestation);
         redirAttrs.addFlashAttribute("success", "Demande acceptée, le demandeur sera notifié");
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
         return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/decline")
-    public String declinePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
+    public String declinePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs, HttpSession session) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.DECLINED.getValue());
         prestationService.save(prestation);
         redirAttrs.addFlashAttribute("success", "Demande refusée, le demandeur sera notifié");
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
         return "redirect:/prestations";
     }
 
     @GetMapping("/prestations/{id}/close")
-    public String closePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs) {
+    public String closePrestation(Model model, @PathVariable("id") String id, RedirectAttributes redirAttrs, HttpSession session) {
         Prestation prestation = prestationService.getById(Long.parseLong(id)).get();
         prestation.setStatus(Status.DONE.getValue());
         prestationService.save(prestation);
         redirAttrs.addFlashAttribute("success", "Demande cloturée avec succès");
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
         return "redirect:/prestations";
     }
 
@@ -138,6 +147,6 @@ public class PrestationController {
         message.setUser(authenticationFacade.getAuthenticatedUser());
         message.setDiscussion(discussion);
         messageService.save(message);
-        return getDiscussions(model, id);
+        return "redirect:/prestations/"+id+"/discussion";
     }
 }

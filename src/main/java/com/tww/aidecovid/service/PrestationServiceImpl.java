@@ -26,8 +26,8 @@ public class PrestationServiceImpl implements PresatationService{
     }
 
     @Override
-    public List<Prestation> getAvailablePrestationsByServiceId(com.tww.aidecovid.model.Service service) {
-        return repository.findByServiceAndStatus(service, Status.NEW.getValue());
+    public List<Prestation> getAvailablePrestationsByServiceId(User user, com.tww.aidecovid.model.Service service) {
+        return repository.findByProviderIsNotAndServiceAndStatus(user, service, Status.NEW.getValue());
     }
 
     @Override

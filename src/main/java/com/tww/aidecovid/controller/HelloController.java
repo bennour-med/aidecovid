@@ -19,13 +19,13 @@ public class HelloController {
     @Autowired
     private ServiceService service;
     @Autowired
-    private PresatationService presatationService;
+    private PresatationService prestationService;
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
-        session.setAttribute("notifCount", presatationService.updateNotifCount());
+        session.setAttribute("notifCount", prestationService.updateNotifCount());
         return "index/index";
     }
 

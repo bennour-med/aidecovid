@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form th:action="@{/prestations/{id}/discussion/addMessage(id=${prestation.id})}" th:object="${message}" th:method="post">
+                        <form th:action="@{/prestations/{id}/discussion/addMessage(id=${prestation.id})}" th:object="${New Message()}" th:method="post">
                             <div class="form-group">
                                 <div class="input-group clearfix">
                                     <input type="text" id="message" th:field="${message.text}" placeholder="Ecrire votre messsage..." autocomplete="off" class="form-control"/>
